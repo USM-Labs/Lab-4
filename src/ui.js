@@ -1,4 +1,4 @@
-import { getTransactions } from "./transactions.js";
+import { getTransactions, removeTransaction } from "./transactions.js";
 
 /**
  * Подсчитывает общую сумму всех транзакций и обновляет интерфейс.
@@ -38,6 +38,7 @@ export function renderTransactions() {
          */
         transaction => {
             const row = document.createElement("tr");
+            row.setAttribute("data-description", transaction.description); // Полное описание
             row.innerHTML = `
                 <td>${transaction.date}</td>
                 <td>${transaction.category}</td>
@@ -73,3 +74,15 @@ document.querySelector("#transactions").addEventListener("click", (event) => {
         updateTotal(); // Обновление суммы после удаления
     }
 });
+
+/**
+ * Делегирование событий для отображения полного описания транзакции
+ */
+document.querySelector("#transactions tbody").addEventListener("click", (event) => {
+    if (event.target.tagName !== "BUTTON") { // Исключаем клик по кнопке удаления
+        const row = event.target.closest("tr");
+        const description = row.dataset.description;
+        document.querySelector("#full-description").textContent = description || "Нет описания";
+    }
+});
+
