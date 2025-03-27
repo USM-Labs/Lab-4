@@ -85,4 +85,3 @@ document.querySelector("#transactions tbody").addEventListener("click", (event) 
         document.querySelector("#full-description").textContent = description || "Нет описания";
     }
 });
-

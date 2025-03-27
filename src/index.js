@@ -67,11 +67,11 @@ function handleFormSubmit(event) {
         description: form.description.value,
     };
 
+    form.reset();
+
     addTransaction(transaction);
     renderTransactions();
     updateTotal();
-
-    form.reset();
 }
 
 document.querySelector("#transaction-form").addEventListener("submit", handleFormSubmit);
